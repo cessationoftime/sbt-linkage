@@ -3,6 +3,9 @@ package sbtlinkage
 import sbt._
 import Keys._
 
+object Link extends App {
+  _root_.console.Console.systemInstall();
+}
 object SbtLinkage extends Plugin {
   override lazy val settings = Seq(commands += myCommand)
 
