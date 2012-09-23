@@ -4,6 +4,8 @@ import sbt._
 import Keys._
 
 object Link extends App {
+  val originalClassLoader = Thread.currentThread().getContextClassLoader();
+  Thread.currentThread().setContextClassLoader(this.getClass.getClassLoader);
   val console = new _root_.console.Console(this.getClass.getClassLoader);
   console.systemInstall();
 }
@@ -18,8 +20,10 @@ object SbtLinkage extends Plugin {
   //}
   //import LinkageKeys._
 
-  lazy val console = new _root_.console.Console(this.getClass.getClassLoader);
+  val originalClassLoader = Thread.currentThread().getContextClassLoader();
+  Thread.currentThread().setContextClassLoader(this.getClass.getClassLoader);
 
+  lazy val console = new _root_.console.Console(this.getClass.getClassLoader);
   lazy val myCommand =
     Command.command("linkage") { (state: State) =>
       console.systemInstall();
