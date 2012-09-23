@@ -4,7 +4,8 @@ import sbt._
 import Keys._
 
 object Link extends App {
-  _root_.console.Console.systemInstall();
+  val console = new _root_.console.Console(this.getClass.getClassLoader);
+  console.systemInstall();
 }
 object SbtLinkage extends Plugin {
   override lazy val settings = Seq(commands += myCommand)
@@ -17,9 +18,11 @@ object SbtLinkage extends Plugin {
   //}
   //import LinkageKeys._
 
+  lazy val console = new _root_.console.Console(this.getClass.getClassLoader);
+
   lazy val myCommand =
     Command.command("linkage") { (state: State) =>
-      _root_.console.Console.systemInstall();
+      console.systemInstall();
       state
     }
 }
